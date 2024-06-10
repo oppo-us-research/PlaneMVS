@@ -38,9 +38,9 @@ apex/
 
 
 # images
-*.jpg
-*.png
-*.jpeg
+#*.jpg
+#*.png
+#*.jpeg
 
 # tensorboard log files
 events.out.*
