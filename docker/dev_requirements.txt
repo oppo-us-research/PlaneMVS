@@ -1,0 +1,52 @@
+matplotlib>=3.5.1
+nose
+scikit-learn
+scikit-image
+opencv-python
+cython
+numpy>=1.20.0 #update due to new numpy.typing
+scipy
+Pillow>=9.0.1
+
+
+## PyTorch: version 1.11
+# move its installation to Dockerfile;
+#--find-links https://download.pytorch.org/whl/cu113
+#torch==1.11.0+cu113
+#--find-links https://download.pytorch.org/whl/cu113
+#torchvision==0.12.0+cu113
+##pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113
+
+## PyTorch: version 2.2.0
+#torch==2.2.0
+#torchvision==0.17.0
+#torchaudio==2.2.0
+#--find-links https://download.pytorch.org/whl/cu121
+
+torchsummary
+torchstat
+thop
+
+tensorboard>=2.8.0
+tqdm
+future
+timm
+
+path
+natsort
+ipdb
+
+# einops stands for Einstein-Inspired Notation for operations
+einops
+
+# for logging
+loguru>=0.6.0
+
+ninja
+yacs
+h5py
+termcolor
+# for maskrcnn_benchmark
+pycocotools
+cityscapesScripts
+

@@ -1,0 +1,10 @@
+#!/bin/bash
+#"""
+#* Copyright (c) 2024 OPPO. All rights reserved.
+#* Under license: MIT
+#* For full license text, see LICENSE file in the repo root
+#"""
+
+alias clc="clear"
+alias lsc="ls -1 | wc -l" # Trying to count number of files in current directory
+alias lsf="ls | head -n 5" # list the first 5 lines

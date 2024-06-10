@@ -1,0 +1,55 @@
+main_nyu_classes:
+    wall:
+        - wall
+        - projector screen
+        - whiteboard
+        - blackboard
+        - garage door
+    chair:
+        - chair
+    floor:
+        - floor
+        - floor mat
+        - rug
+    door:
+        - door
+    window:
+        - window
+        - blinds
+    table:
+        - table
+        - coffee table
+        - night stand
+        - counter
+        - desk
+        - stool
+        - pool table
+        - ping pong table
+        - piano bench
+        - bench
+    box:
+        - box
+        - garbage bin
+        - storage bin
+        - bin
+    sofa:
+        - sofa
+        - pillow
+        - bed
+        - ottoman
+        - mattress
+        - bunk bed
+        - headboard
+    picture:
+        - picture
+    screen:
+        - monitor
+        - television
+        - computer
+        - laptop
+    cabinet:
+        - cabinet
+        - dresser
+        - drawer
+        - chest
+        - refridgerator
