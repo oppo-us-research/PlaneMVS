@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="PlaneMVS: 3D Plane Reconstruction from Multi-view Stereo">
+  <meta name="keywords" content="3D Plane Reconstruction, MVS, Depth estimation, Slanted plane hypotheses">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> PlaneMVS: 3D Plane Reconstruction from Multi-view Stereo </title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://www.changjiangcai.com/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://github.com/oppo-us-research/riav-mvs">
+            RIAV-MVS for MVS
+          </a>
+          <a class="navbar-item" href="https://github.com/oppo-us-research/NARUTO">
+            NARUTO for 3D Reconstruction
+          </a>
+          <a class="navbar-item" href="https://github.com/ccj5351/MS-Nets">
+            MS-Net for Stereo Matching
+          </a>
+          <a class="navbar-item" href="https://github.com/ccj5351/DAFStereoNets">
+            DAFStereoNets for Stereo Matching
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"> PlaneMVS: 3D Plane Reconstruction from Multi-view Stereo </h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=NSeLtc0AAAAJ&hl=en">Jiachen Liu</a>,</span>
+            <span class="author-block">
+              <a href="https://sites.google.com/view/panji530">Pan Ji</a>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=h_Hym_8AAAAJ&hl=en">Nitin Bansal</a>,</span>
+            <span class="author-block">
+              <a href="https://www.changjiangcai.com/">Changjiang Cai</a>,</span>
+            <span class="author-block">
+              <a href="https://yanqingan.github.io/">Qingan Yan</a>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=iTtzc1UAAAAJ&hl=en">Xiaolei Huang</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com.au/citations?user=ldanjkUAAAAJ&hl=en">Yi Xu</a>,
+            </span>
+          </div>
+
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2203.12082"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2203.12082"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://youtu.be/yPoWc79XYsQ"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/oppo-us-research/PlaneMVS"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="static/images/cvpr22_slide_PlaneMVS.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Slides</span>
+                  </a>
+              </span>
+
+
+              <!-- Poster Link. -->
+              <span class="link-block">
+                <a href="static/images/cvpr22_poster_PlaneMVS.pdf" class="external-link button is-normal is-rounded is-dark" style="background-color:#000000;">
+                  <span class="icon">
+                    <svg class="svg-inline--fa fa-palette fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="palette" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M204.3 5C104.9 24.4 24.8 104.3 5.2 203.4c-37 187 131.7 326.4 258.8 306.7 41.2-6.4 61.4-54.6 42.5-91.7-23.1-45.4 9.9-98.4 60.9-98.4h79.7c35.8 0 64.8-29.6 64.9-65.3C511.5 97.1 368.1-26.9 204.3 5zM96 320c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm32-128c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm128-64c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm128 64c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32z"></path></svg><!-- <i class="fas fa-palette"></i> Font Awesome fontawesome.com -->
+                  </span>
+                  <span>Poster</span>
+                </a>
+              </span>
+
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+
+      <img src="static/images/planemvs_head.png" alt="PlaneMVS Pipeline">
+      <h2 class="subtitle has-text-centered">
+        PlaneMVS Framework Pipeline.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We present a novel framework named PlaneMVS for 3D plane reconstruction from multiple input views with known camera poses. 
+            Most previous learning-based plane reconstruction methods reconstruct 3D planes from single images, 
+            which highly rely on single-view regression and suffer from depth scale ambiguity. 
+            In contrast, we reconstruct 3D planes with a multi-view-stereo (MVS) pipeline 
+            that takes advantage of multi-view geometry. 
+          </p>
+            
+          <p>
+            We decouple plane reconstruction into a semantic plane detection branch and a plane MVS branch. 
+            The semantic plane detection branch is based on a single-view plane detection framework 
+            but with differences. The plane MVS branch adopts a set of slanted plane 
+            hypotheses to replace conventional depth hypotheses to perform plane 
+            sweeping strategy and finally learns pixel-level plane parameters and 
+            its planar depth map. We present how the two branches are learned in 
+            a balanced way, and propose a soft-pooling loss to associate the 
+            outputs of the two branches and make them benefit from each other. 
+          </p>
+            
+          <p>
+            Extensive experiments on various indoor datasets show that PlaneMVS 
+            significantly outperforms state-of-the-art (SOTA) single-view plane 
+            reconstruction methods on both plane detection and 3D geometry metrics. 
+            Our method even outperforms a set of SOTA learning-based MVS methods 
+            thanks to the learned plane priors. To the best of our knowledge, 
+            this is the first work on 3D plane reconstruction within an 
+            end-to-end MVS framework.
+          </p>
+          
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://youtu.be/yPoWc79XYsQ"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+
+
+    <!-- Matting. -->
+    <!--/ Matting. -->
+
+    <!-- Animation. -->
+
+        <!-- Interpolating. -->
+        <!--/ Interpolating. -->
+
+        <!-- Re-rendering. -->
+        <!--/ Re-rendering. -->
+
+    <!--/ Animation. -->
+
+
+    <!-- Concurrent Work. -->
+    <!--/ Concurrent Work. -->
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code> @InProceedings{liu2022planemvs,
+    author    = {Liu, Jiachen and Ji, Pan and Bansal, Nitin and Cai, Changjiang and Yan, Qingan and Huang, Xiaolei and Xu, Yi},
+    title     = {PlaneMVS: 3D Plane Reconstruction From Multi-View Stereo},
+    booktitle = {CVPR},
+    month     = {June},
+    year      = {2022},
+    pages     = {8665-8675}
+  }
+</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
