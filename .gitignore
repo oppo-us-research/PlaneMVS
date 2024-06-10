@@ -37,10 +37,6 @@ apex/
 .DS_Store
 
 
-# images
-*.jpg
-*.png
-*.jpeg
 
 # tensorboard log files
 events.out.*
