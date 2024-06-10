@@ -3,7 +3,8 @@
 [![Project Page](https://img.shields.io/badge/🌐-Project_Page-blue)](https://oppo-us-research.github.io/PlaneMVS)
 [![Paper Arxiv](https://img.shields.io/badge/📝-Paper_Arxiv-green)](https://arxiv.org/abs/2203.12082)
 [![Video](https://badges.aleen42.com/src/youtube.svg)](https://youtu.be/yPoWc79XYsQ)
-[![Poster](https://img.shields.io/badge/🪧-Poster-red)](https://www.changjiangcai.com/files/planemvs-cvpr2022/planemvs-poster.pdf)
+[![Poster](https://img.shields.io/badge/🪧-Poster-red)](https://oppo-us-research.github.io/PlaneMVS/static/images/cvpr22_poster_PlaneMVS.pdf)
+[![Slide](https://img.shields.io/badge/🖼️-Slides-orange)](https://oppo-us-research.github.io/PlaneMVS/static/images/cvpr22_slide_PlaneMVS.pdf)
 
 
 This is an official PyTorch implementation of the paper: 
