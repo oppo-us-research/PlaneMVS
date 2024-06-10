@@ -26,7 +26,7 @@ This is an official PyTorch implementation of the paper:
 > <sup>&ddagger;</sup> Code development and maintenance </br>  
 
 <p align="center">
-  <img src="assets/planemvs_head.png" width="800">
+  <img src="./assets/planemvs_head.png" width="800">
 </p>
 
 
