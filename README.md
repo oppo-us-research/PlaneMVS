@@ -62,7 +62,7 @@ This is an official PyTorch implementation of the paper:
   - Semantic Dense Mapping: Simultaneously perform semantic plane detection and dense 3D reconstruction.
   - Multi-view inputs: multi-view input RGB images or monocular RGB videos to recover the 3D scale without suffering scale ambiguity compared with single-view counterparts.
 
-- Our implementation gives a upgraded [maskrcnn_benchmark](third_party/maskrcnn_main/maskrcnn_benchmark) to support latest PyTorch and CUDA Compilation. The code has been tested in the following environment:
+- Our implementation gives an upgraded [maskrcnn_benchmark](third_party/maskrcnn_main/maskrcnn_benchmark) to support latest PyTorch and CUDA Compilation. The code has been tested in the following environment:
   - PyTorch 2.2.0+cu121, Python 3.10, Ubuntu 22.04.4, via a virtual environment and a docker container(See details in [Setup](#setup)).
 
 - 🗣 Why to upgrade maskrcnn-benchmark?
@@ -143,7 +143,7 @@ cd $PROJ_ROOT
 
 - After running `./compile.sh` to compile the CUDA codes (including: `maskrcnn_benchmark/csrc/cuda/*.cu`), it will generate the `*.so` library at `third_party/maskrcnn_main/build/lib/maskrcnn_benchmark/_C.cpython-310-x86_64-linux-gnu.so`.
 
-- We will explicitly load the `*.so` as, for example, as shown in the file [roi_align.py](third_party/maskrcnn_main/maskrcnn_benchmark/layers/roi_align.py) as:
+- We will explicitly load the `*.so`, for example, as shown in the file [roi_align.py](third_party/maskrcnn_main/maskrcnn_benchmark/layers/roi_align.py) as:
   ```python
   from build.lib.maskrcnn_benchmark import _C
   ```
@@ -242,9 +242,9 @@ NOTE 📢: We recommend to make a soft link to mount your dataset to the local d
 
 ### Config Parameters 📝 <a id="config"></a>
 
-The default model configuration parameter is defined at [src/config/defaults.py](src/config/defaults.py), and the data path parameters is listed at [src/config/paths_catalog.py](src/config/paths_catalog.py).
+The default model configuration parameters are defined at [src/config/defaults.py](src/config/defaults.py), and the data path parameters is listed at [src/config/paths_catalog.py](src/config/paths_catalog.py).
 
-The checkpoint loader is definied at [src/utils/checkpoint.py](src/utils/checkpoint.py).
+The model checkpoint loader is definied at [src/utils/checkpoint.py](src/utils/checkpoint.py).
 
 ### ScanNet Dataloader 🔃 <a id="scannet-dataloader"></a>
 
@@ -270,7 +270,7 @@ We need to first download the `resnet50-FPN` maskrcnn (model id: 6358792) pre-tr
 
 ### Our Model Checkpoints
 
-We provide several [model checkpoints](to_be_released???) trained on ScannNetv2, by varying the training data size, training epochs and batch sizes, and so on. 
+We provide several [model checkpoints](to_be_released???) trained on ScannNetv2, by varying the training data size, training epoch and batch size, and so on. 
 
 While the model configuration is specified by the yaml file [`planestereo.yaml`](configs/plane_cfgs/planestereo.yaml), other parameters can be changed dynamically in their scripts in the following formats:
 
@@ -279,7 +279,7 @@ While the model configuration is specified by the yaml file [`planestereo.yaml`]
 - Training, e.g., `NUM_EPOCHS`, `BATCH_SIZE`, `BASE_LEARNING_RATE` can be changed in the scripts (see below). 
 
 
-| Experiments | Config.  |  Training <br> Time | Depth <br> AbsDiff↓| SqRel↓ | RMSE↓| $\delta$ < 1.25↑ |  Detection <br> AP $^{0.2m}$↑ | AP $^{0.4m}$↑| AP↑| mAP↑| 
+| Experiments | Config.  |  Training <br> Time | Depth <br> AbsDiff↓| Depth <br> SqRel↓ | Depth <br> RMSE↓| Depth <br> $\delta$<1.25↑ | Detection <br> AP $^{0.2m}$↑ | Detection <br> AP $^{0.4m}$ ↑| AP↑| mAP↑| 
 |----|----|----|----|----|----|----|----|----|----|----|
 | model ckpt @Exp1 <ul> <li>[run_train_exp01.sh](scripts/run_train_exp01.sh)</li> <li>[`planestereo.yaml`](configs/plane_cfgs/planestereo.yaml) </li>  </ul> | <ul><li> single-GPU training </li> <li> sampled data (#samples=20k) </li> <li> BS=6,LR=0.003,Epoch=10 </li> </ul> | 24 hrs | 0.088 | 0.027 | 0.186 | 0.925 | 0.441  |  0.516|  0.542| 0.491|
 | model ckpt @Exp2 <ul> <li>[run_train_exp02.sh](scripts/run_train_exp02.sh)</li> <li>[`planestereo.yaml`](configs/plane_cfgs/planestereo.yaml) </li> </ul>| <ul><li> single-GPU training </li> <li> all data (#samples=67k) </li> <li> BS=6,LR=0.003,Epoch=10 </li> </ul> | 70 hrs | 0.083 | 0.023 | 0.175 | 0.936 | 0.459 | 0.533| 0.553 | 0.519| 
@@ -297,7 +297,7 @@ scripts/run_train_exp03.sh 0,1
 ```
 
 ### Resume
-Sometimes you have to stop and resume the training due to NaN loss (check this [issue #33](https://github.com/facebookresearch/maskrcnn-benchmark/issues/33)) after several training iteration.
+Sometimes you have to stop and resume the training due to NaN loss (check this [issue #33](https://github.com/facebookresearch/maskrcnn-benchmark/issues/33)) after several training iterations.
 
 To resume training a process, make sure there is a file in your `./checkpoints/some_exp_folder/last_checkpoint`. This `last_checkpoint` automatically points to the most recent checkpoint, e.g., it points to the file `./checkpoints_nfs/exp01-planemvs-epo10-bs6-dgx10/model_final.pth`. 
 
@@ -384,5 +384,16 @@ Please also consider our another MVS paper if you find it useful:
     month     = {June},
     year      = {2023},
     pages     = {919-928}
+}
+```
+
+and a neural active reconstruction paper if you find it helpful:
+
+```plain
+@article{feng2024naruto,
+  title={NARUTO: Neural Active Reconstruction from Uncertain Target Observations},
+  author={Feng, Ziyue and Zhan, Huangying and Chen, Zheng and Yan, Qingan and Xu, Xiangyu and Cai, Changjiang and Li, Bing and Zhu, Qilun and Xu, Yi},
+  journal={arXiv preprint arXiv:2402.18771},
+  year={2024}
 }
 ```
