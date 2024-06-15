@@ -309,11 +309,9 @@ Now you can run [test_net.py](test_net.py) for testing and evaluation. We provid
 ```bash
 # single GPU inference on GPU 0; 
 scripts/run_test_exp03.sh 0
-```
 
-
-```bash
-scripts/test.sh
+# (Optional) Or if you want to save terminal output to a .txt file;
+scripts/run_test_exp03.sh 0 2>&1 | tee results/tmp_results.txt
 ```
 
 It will give you the following depth metrics and detection metrics.
