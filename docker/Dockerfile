@@ -49,15 +49,18 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     /usr/bin/python3 get-pip.py && \
     rm get-pip.py
 
-COPY files/* /tmp/
-#COPY dev_requirements.txt /tmp/
-#COPY files/bashrc_extra /tmp/
+#COPY files/* /tmp/
+COPY dev_requirements.txt /tmp/
+#COPY bashrc_extra /tmp/
+
 RUN pip install --upgrade pip
-RUN pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113
+#RUN pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113
 # Or use this PyTorch version, which has also be verified by our code;
-#RUN pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cu121
+
+RUN pip install torch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 --index-url https://download.pytorch.org/whl/cu121
 RUN pip install -r /tmp/dev_requirements.txt 
-## Or, do not install here, instead to install them once you log into the Docker container;
+## Or, do not install here, instead to install them once you 
+#log into the Docker container;
 
 RUN pip install ipython
 
@@ -74,7 +77,6 @@ RUN addgroup --gid $GROUP_ID $GROUP_NAME
 RUN useradd -rm -d /home/$USER_NAME --shell /bin/bash  --uid $USER_ID --gid $GROUP_ID -G $GROUP_NAME $USER_NAME
 
 EXPOSE 22
-#WORKDIR /usr/lib/python3.8/site-packages/
 USER $USER_NAME:$GROUP_NAME
 WORKDIR /home/$USER_NAME
 
@@ -91,17 +93,13 @@ RUN pip install cityscapesscripts
 # && cd cityscapesScripts \
 # && /usr/bin/python3 setup.py build_ext install
 
-# install apex
-#RUN git clone https://github.com/NVIDIA/apex.git \
-# && cd apex \
-# && /usr/bin/python3 setup.py install --cuda_ext --cpp_ext
-
 ##################################################
 ###  Personalized System initialization commands/installations (Optional)
 ##################################################
-### Create softlinks ###
-RUN ln -s /home/changjiang/code /home/${USER_NAME}/code
-RUN ln -s /home/changjiang/Downloads /home/${USER_NAME}/Downloads
+### (Optional) Create softlinks ###
+ARG HOST_USER_NAME='changjiang'
+RUN ln -s /home/${HOST_USER_NAME}/code /home/${USER_NAME}/code
+#RUN ln -s /home/${HOST_USER_NAME}/Downloads /home/${USER_NAME}/Downloads
 
 ##################################################
 ###  Environment variable setup
@@ -112,21 +110,9 @@ ENV PATH=/home/$USER_NAME/bin:$PATH
 ### color prompt ###
 ENV TERM='xterm-color'
 
-## Install Miniconda and Python 3.8
-#ENV CONDA_AUTO_UPDATE_CONDA=false
-#ENV PATH=/home/$USER_NAME/miniconda/bin:$PATH
-#RUN curl -sLo ~/miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-py38_4.8.3-Linux-x86_64.sh \
-#  && chmod +x ~/miniconda.sh \
-#  && ~/miniconda.sh -b -p ~/miniconda \
-#  && rm ~/miniconda.sh \
-#  && conda install -y python==3.8.3 \
-#  && conda clean -ya
-#RUN conda install -c conda-forge tensorboardx
-
-
 ##################################################
 ###  Bashrc
 ##################################################
-### bashrc ###
+### (Optional) bashrc ###
 COPY bashrc_extra /home/$USER_NAME/.bashrc_extra
 RUN echo "source ~/.bashrc_extra" >> ~/.bashrc
