@@ -270,7 +270,7 @@ We need to first download the `resnet50-FPN` maskrcnn (model id: 6358792) pre-tr
 
 ### Our Model Checkpoints
 
-We provide several [model checkpoints](to_be_released???) trained on ScannNetv2, by varying the training data size, training epoch and batch size, and so on. 
+We provide several [model checkpoints](https://www.dropbox.com/scl/fo/z8lc78o56mq424ey760g4/AB21vshaFYjEIn0i1sboUbg?rlkey=ip85luaxy8qo97n13vjdcn341&st=aaxj6hmn&dl=0) trained on ScannNetv2, by varying the training data size, training epoch and batch size, and so on. 
 
 While the model configuration is specified by the yaml file [`planestereo.yaml`](configs/plane_cfgs/planestereo.yaml), other parameters can be changed dynamically in their scripts in the following formats:
 
@@ -281,10 +281,10 @@ While the model configuration is specified by the yaml file [`planestereo.yaml`]
 
 | Experiments | Config.  |  Training <br> Time | Depth <br> AbsDiff↓| Depth <br> SqRel↓ | Depth <br> RMSE↓| Depth <br> $\delta$<1.25↑ | Detection <br> AP $^{0.2m}$↑ | Detection <br> AP $^{0.4m}$ ↑| AP↑| mAP↑| 
 |----|----|----|----|----|----|----|----|----|----|----|
-| model ckpt @Exp1 <ul> <li>[run_train_exp01.sh](scripts/run_train_exp01.sh)</li> <li>[`planestereo.yaml`](configs/plane_cfgs/planestereo.yaml) </li>  </ul> | <ul><li> single-GPU training </li> <li> sampled data (#samples=20k) </li> <li> BS=6,LR=0.003,Epoch=10 </li> </ul> | 24 hrs | 0.088 | 0.027 | 0.186 | 0.925 | 0.441  |  0.516|  0.542| 0.491|
-| model ckpt @Exp2 <ul> <li>[run_train_exp02.sh](scripts/run_train_exp02.sh)</li> <li>[`planestereo.yaml`](configs/plane_cfgs/planestereo.yaml) </li> </ul>| <ul><li> single-GPU training </li> <li> all data (#samples=67k) </li> <li> BS=6,LR=0.003,Epoch=10 </li> </ul> | 70 hrs | 0.083 | 0.023 | 0.175 | 0.936 | 0.459 | 0.533| 0.553 | 0.519| 
-| Our best 🎯 model ckpt @Exp3 <ul> <li>[run_train_exp03.sh](scripts/run_train_exp02.sh)</li> <li>[`planestereo.yaml`](configs/plane_cfgs/planestereo.yaml) </li> </ul> | <ul><li> 2-GPU training </li> <li> all data (#samples=67k) </li> <li> BS=16,LR=0.003,Epoch=10 </li> </ul> | 53 hrs | **0.081** | **0.022** | **0.170** | **0.939** | **0.477** |  **0.551** | **0.571** | **0.541** | 
-| model ckpt @Exp4 <ul> <li>[run_train_exp04.sh](scripts/run_train_exp02.sh)</li> <li>[`planestereo.yaml`](configs/plane_cfgs/planestereo.yaml) </li> </ul>| <ul><li> 2-GPU training </li> <li> sampled data (#samples=20k) </li> <li> BS=16,LR=0.0003,Epoch=20 </li> </ul> | 20 hrs | 0.089 | 0.027 | 0.186 | 0.925 | 0.443 | 0.522| 0.545 | 0.481|
+| [model ckpt @Exp1](https://www.dropbox.com/scl/fi/4pfhl27864oqo2dk5t2s7/model_final_exp01.pth?rlkey=75sbre0o7gew129wnetwmub2e&st=0kcb8txo&dl=0) <ul> <li>[run_train_exp01.sh](scripts/run_train_exp01.sh)</li> <li>[`planestereo.yaml`](configs/plane_cfgs/planestereo.yaml) </li>  </ul> | <ul><li> single-GPU training </li> <li> sampled data (#samples=20k) </li> <li> BS=6,LR=0.003,Epoch=10 </li> </ul> | 24 hrs | 0.088 | 0.027 | 0.186 | 0.925 | 0.441  |  0.516|  0.542| 0.491|
+| [model ckpt @Exp2](https://www.dropbox.com/scl/fi/530d68iikd8jzijzjxoye/model_final_exp02.pth?rlkey=nnzof37r6i9pzenvmprc75gvo&st=05v8s4ai&dl=0) <ul> <li>[run_train_exp02.sh](scripts/run_train_exp02.sh)</li> <li>[`planestereo.yaml`](configs/plane_cfgs/planestereo.yaml) </li> </ul>| <ul><li> single-GPU training </li> <li> all data (#samples=67k) </li> <li> BS=6,LR=0.003,Epoch=10 </li> </ul> | 70 hrs | 0.083 | 0.023 | 0.175 | 0.936 | 0.459 | 0.533| 0.553 | 0.519| 
+| Our best 🎯 [model ckpt @Exp3](https://www.dropbox.com/scl/fi/jmk8u26kihuztk1ugxcvj/model_final_exp03.pth?rlkey=qmo9asj44m3zttkpbab1y490v&st=c3npy11i&dl=0) <ul> <li>[run_train_exp03.sh](scripts/run_train_exp02.sh)</li> <li>[`planestereo.yaml`](configs/plane_cfgs/planestereo.yaml) </li> </ul> | <ul><li> 2-GPU training </li> <li> all data (#samples=67k) </li> <li> BS=16,LR=0.003,Epoch=10 </li> </ul> | 53 hrs | **0.081** | **0.022** | **0.170** | **0.939** | **0.477** |  **0.551** | **0.571** | **0.541** | 
+| [model ckpt @Exp4](https://www.dropbox.com/scl/fi/f55nzxs8s52yfyi2rwwbs/model_final_exp04.pth?rlkey=hc41cdwspgrlucl8lsro6iih3&st=eo8cah0a&dl=0) <ul> <li>[run_train_exp04.sh](scripts/run_train_exp02.sh)</li> <li>[`planestereo.yaml`](configs/plane_cfgs/planestereo.yaml) </li> </ul>| <ul><li> 2-GPU training </li> <li> sampled data (#samples=20k) </li> <li> BS=16,LR=0.0003,Epoch=20 </li> </ul> | 20 hrs | 0.089 | 0.027 | 0.186 | 0.925 | 0.443 | 0.522| 0.545 | 0.481|
 ## ⏳ Training <a id="training"></a>
 
 ### Training on ScanNet
