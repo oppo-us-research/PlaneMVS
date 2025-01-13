@@ -96,7 +96,7 @@ git clone https://github.com/oppo-us-research/PlaneMVS.git
 cd $PROJ_ROOT
 ```
 
-**Step 2**: Configure a Docker environment <img src="assets/docker_logo.png" width="15" height="15">
+**Step 2**: Configure a Docker environment (Optional)
 
 - Follow the steps to install the Docker environment:
 ```bash
@@ -130,8 +130,19 @@ docker exec -it d89c34efb04a bash
 # You can run the following from the outside of the docker container.
 docker commit -m "some notes you specified" d89c34efb04a ccj/planemvs:1.1
 ```
+Please find the installed packages for a running well Docker container as in [docker/requirements_installed_in_docker.txt](docker/requirements_installed_in_docker.txt).
 
-**Step 3**: Compile the maskrcnn_benchmark
+**Step 3**: Configure a Conda environment (Optional)
+Or you can skip the Docker environment in last step, instead to configure a Conda environment if you prefer.
+
+```bash
+conda create -n planemvs python=3.10 -y
+conda activate planemvs
+pip install --upgrade pip
+pip install -r requirements_conda.txt
+```
+
+**Step 4**: Compile the maskrcnn_benchmark
 
 ```bash
 cd $PROJ_ROOT
